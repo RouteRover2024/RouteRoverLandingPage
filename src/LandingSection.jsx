@@ -9,24 +9,19 @@ import {
 import { Stars } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 
-const COLORS = [
-	"#FF4F00",
-	"#FFBF00",
-	"#00FFBF",
-	"#00BFFF",
-	"#72A0C1",
-	"#B284BE",
-];
+const COLORS = ["#00B9E8", "#007FFF", "#6699CC", "#318CE7", "#00BFFF"];
+
 function LandingSection() {
 	const color = useMotionValue(COLORS[0]);
 	const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #020617 50%, ${color})`;
 	const border = useMotionTemplate`2px solid ${color}`;
 	const boxShadow = useMotionTemplate`0px 4px 24px ${color}`;
+	const filter = useMotionTemplate`drop-shadow(0 0 32px ${color})`;
 
 	useEffect(() => {
 		animate(color, COLORS, {
 			ease: "easeInOut",
-			duration: 50,
+			duration: 10,
 			repeat: Infinity,
 			repeatType: "mirror",
 		});
@@ -34,23 +29,27 @@ function LandingSection() {
 
 	return (
 		<motion.section
-			className=" h-auto md:h-[90dvh] flex flex-col md:flex-row items-center justify-center p-6 md:p-24 gap-x-8 gap-y-8 w-dvw"
+			className="h-auto md:h-[90dvh] flex flex-col-reverse md:flex-row items-center justify-center p-6 md:p-24 gap-x-8 gap-y-2 w-dvw"
 			style={{
 				backgroundImage,
 			}}
 		>
-			<article className="relative z-10 font-sans h-full flex flex-col justify-center gap-8 items-center md:items-start text-center md:text-left">
-				<h1 className="text-3xl md:text-5xl font-bold text-white mt-4 sm:mt-0">
-					Planning your commute was never this Easy!
+			<article className="relative z-10 font-sans flex flex-col justify-center gap-4 md:gap-8 items-center md:items-start text-center md:text-left h-full">
+				<h1 className="text-3xl md:text-5xl md:leading-[4rem] font-bold text-white">
+					Planning your commute was never this{" "}
+					<motion.span style={{ color }}>Easy!</motion.span>
 				</h1>
 				<p className="text-base md:text-lg text-zinc-300">
 					Effortlessly explore routes, compare costs, and make
 					informed travel decisions tailored to your preferences and
 					budget
 				</p>
-				<motion.a
+				<motion.button
+					whileHover={{ scale: 1.05 }}
+					whileTap={{ scale: 0.95 }}
+					transition={{ duration: 0.2, ease: "easeInOut" }}
 					href="#"
-					className="flex items-center justify-center gap-4 group transition-all duration-500 text-base md:text-lg w-fit text-white font-bold py-2 px-4 rounded-full mt-2"
+					className="flex items-center justify-center gap-4 group text-base md:text-lg w-fit text-white font-bold py-2 px-4 rounded-full mt-2 backdrop-blur-sm"
 					style={{
 						border,
 						boxShadow,
@@ -71,17 +70,18 @@ function LandingSection() {
 							d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
 						/>
 					</svg>
-				</motion.a>
+				</motion.button>
 			</article>
 			<article className="relative z-10">
-				<img
+				<motion.img
 					src={HeroAsset}
 					className="h-full w-80 sm:w-[400px] md:w-[600px] max-w-[600px]"
-				></img>
+					style={{ filter }}
+				></motion.img>
 			</article>
 			<div className="z-0 absolute inset-0">
 				<Canvas>
-					<Stars radius={50} count={2500} factor={4} fade speed={2} />
+					<Stars radius={25} count={1500} factor={4} fade speed={2} />
 				</Canvas>
 			</div>
 		</motion.section>
