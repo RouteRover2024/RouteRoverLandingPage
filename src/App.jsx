@@ -6,7 +6,7 @@ import RouteRoverLogoText from "./assets/RouteRoverLogoText.svg";
 
 function App() {
 	return (
-		<main className="w-dvw overflow-x-hidden bg-[#020617]">
+		<div className="w-[100%] overflow-x-hidden bg-[#020617]">
 			<img
 				src={RouteRoverLogoText}
 				alt="RouteRover"
@@ -17,7 +17,7 @@ function App() {
 			<Features />
 			<Conclusion />
 			<Footer />
-		</main>
+		</div>
 	);
 }
 
